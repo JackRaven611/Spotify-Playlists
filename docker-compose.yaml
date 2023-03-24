@@ -1,0 +1,9 @@
+version: v2.15.1
+services:
+  react-app:
+    build: .
+    container_name: spotify_clone
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
