@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Login } from "./View/Login";
 import { Main } from "./View/Main";
 import { Playlist } from "./View/Playlist";
 import { Search } from "./View/Search";
@@ -13,7 +12,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route path="/Login" element={<Login />}></Route>
             <Route path="/Playlist" element={<Playlist />}></Route>
             <Route path="/Search" element={<Search />}></Route>
           </Routes>
