@@ -1,4 +1,4 @@
-import { BackButton } from "../components/BackButton/BackButton";
+import { CLIENT_ID, REDIRECT_URI } from "../../api";
 
 export const Login = () => {
   async function generateCodeChallenge(codeVerifier) {
@@ -16,12 +16,9 @@ export const Login = () => {
     return base64encode(digest);
   }
 
-  const clientId = "e6d7f42c79a04dfbafddadc1352f5889";
-  const redirectUri = "http://localhost:3000";
-
   const generateRandomString = (length) => {
     let text = "";
-    let possible =
+    const possible =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     for (let i = 0; i < length; i++) {
@@ -30,20 +27,20 @@ export const Login = () => {
     return text;
   };
 
-  let codeVerifier = generateRandomString(128);
+  const codeVerifier = generateRandomString(128);
 
   const click = () => {
     generateCodeChallenge(codeVerifier).then((codeChallenge) => {
-      let state = generateRandomString(16);
-      let scope = "user-read-private user-read-email";
+      const state = generateRandomString(16);
+      const scope = "user-read-private user-read-email playlist-read-private";
 
       localStorage.setItem("code-verifier", codeVerifier);
 
-      let args = new URLSearchParams({
+      const args = new URLSearchParams({
         response_type: "code",
-        client_id: clientId,
+        client_id: CLIENT_ID,
         scope: scope,
-        redirect_uri: redirectUri,
+        redirect_uri: REDIRECT_URI,
         state: state,
         code_challenge_method: "S256",
         code_challenge: codeChallenge,
@@ -54,9 +51,7 @@ export const Login = () => {
   };
   return (
     <>
-      <h1>Login page</h1>
-      <BackButton />
-      <button onClick={click}>Login</button>
+      <button onClick={click}>Login with Spotify</button>
     </>
   );
 };

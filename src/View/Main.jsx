@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { CLIENT_ID, REDIRECT_URI } from "../api";
+import { Login } from "../components/Login/Login";
 
 export const Main = () => {
-  const clientId = "e6d7f42c79a04dfbafddadc1352f5889";
-  const redirectUri = "http://localhost:3000";
   const urlParams = new URLSearchParams(window.location.search);
-  let code = urlParams.get("code");
+  const code = urlParams.get("code");
 
-  let codeVerifier = localStorage.getItem("code-verifier");
+  const codeVerifier = localStorage.getItem("code-verifier");
 
-  let body = new URLSearchParams({
+  const body = new URLSearchParams({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: redirectUri,
-    client_id: clientId,
+    redirect_uri: REDIRECT_URI,
+    client_id: CLIENT_ID,
     code_verifier: codeVerifier,
   });
 
@@ -41,21 +41,23 @@ export const Main = () => {
 
   useEffect(() => {
     fetchToken();
-    console.log("1", code, "2", codeVerifier);
   }, [code, codeVerifier]);
 
   return (
     <>
-      <h1>Main</h1>
-      <Link to="/Login">
-        <button>Login</button>
-      </Link>
-      <Link to="/Playlist">
-        <button>Playlist</button>
-      </Link>
-      <Link to="/Search">
-        <button>Search</button>
-      </Link>
+      {code ? (
+        <>
+          <h1>Main</h1>
+          <Link to="/Playlist">
+            <button>Playlist</button>
+          </Link>
+          <Link to="/Search">
+            <button>Search</button>
+          </Link>
+        </>
+      ) : (
+        <Login />
+      )}
     </>
   );
 };
