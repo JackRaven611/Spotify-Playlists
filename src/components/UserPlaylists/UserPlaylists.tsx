@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Playlist } from "./styles";
 
 export const UserPlaylists = () => {
   const token = localStorage.getItem("access-token");
@@ -24,14 +26,16 @@ export const UserPlaylists = () => {
 
   const userList = playlists.map((playlist) => (
     <li key={playlist.id}>
-      <img src={playlist.images[0].url} alt="playlist img" />
-      <h2>{playlist.name}</h2>
+      <Link to="/Playlist" state={playlist.tracks.href}>
+        <img src={playlist.images[0].url} alt="playlist img" />
+        <h2>{playlist.name}</h2>
+      </Link>
     </li>
   ));
 
   return (
-    <div>
+    <Playlist>
       <ul>{userList}</ul>
-    </div>
+    </Playlist>
   );
 };

@@ -51,13 +51,10 @@ export const Main = () => {
         <>
           <h1>Main</h1>
           <LogOut />
-          <UserPlaylists />
-          <Link to="/Playlist">
-            <button>Playlist</button>
-          </Link>
           <Link to="/Search">
             <button>Search</button>
           </Link>
+          <UserPlaylists />
         </>
       ) : (
         <Login />
