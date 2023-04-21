@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CLIENT_ID, REDIRECT_URI } from "../api";
 import { Login } from "../components/Login/Login";
 import { UserPlaylists } from "../components/UserPlaylists/UserPlaylists";
@@ -9,7 +9,7 @@ export const Main = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
   const codeVerifier = localStorage.getItem("code-verifier");
-  const token = localStorage.getItem("access-token");
+  const [token, setToken] = useState("");
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",
@@ -35,6 +35,7 @@ export const Main = () => {
       })
       .then((data) => {
         localStorage.setItem("access-token", data.access_token);
+        setToken(localStorage.getItem("access-token"));
       })
       .catch((error) => {
         console.error("Error:", error);
