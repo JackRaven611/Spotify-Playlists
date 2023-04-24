@@ -29,7 +29,7 @@ export const Login = () => {
 
   const codeVerifier = generateRandomString(128);
 
-  const click = () => {
+  const spotifyLogin = () => {
     generateCodeChallenge(codeVerifier).then((codeChallenge) => {
       const state = generateRandomString(16);
       const scope = "user-read-private user-read-email playlist-read-private";
@@ -51,7 +51,11 @@ export const Login = () => {
   };
   return (
     <>
-      <button onClick={click}>Login with Spotify</button>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"
+        alt="spotify logo"
+      />
+      <button onClick={spotifyLogin}>Login with Spotify</button>
     </>
   );
 };
